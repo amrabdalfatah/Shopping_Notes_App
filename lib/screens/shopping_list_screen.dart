@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'list_items_screen.dart';
 import '../models/list_model.dart';
+import '../database/shopping_database.dart';
 
 class ShoppingListScreen extends StatefulWidget {
   const ShoppingListScreen({Key? key}) : super(key: key);
@@ -29,9 +30,11 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    ShoppingDatabase shoppingDatabase = ShoppingDatabase();
+    shoppingDatabase.openDB();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Lists'),
+        title: Text('Shopping Notes Lists'),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 10),
