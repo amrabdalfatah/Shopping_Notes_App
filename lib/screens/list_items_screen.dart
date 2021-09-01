@@ -10,8 +10,6 @@ class ListItems extends StatefulWidget {
 class _ListItemsState extends State<ListItems> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-    );
+    return Container();
   }
 }
