@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
 import '../models/list_model.dart';
 import '../models/item_model.dart';
 
@@ -11,27 +12,30 @@ class ShoppingDatabase {
   // 6- Delete Database
   Database? database;
 
+  static final ShoppingDatabase _database = ShoppingDatabase._init();
+
   ShoppingDatabase._init();
 
   factory ShoppingDatabase() {
-    return ShoppingDatabase._init();
+    return _database;
   }
 
   Future<Database> openDB() async {
     if (database == null) {
       database = await openDatabase(
-        'shopping.db',
+        join(
+          await getDatabasesPath(),
+          'shopping.db',
+        ),
         version: 1,
         onCreate: (database, version) {
           print('Database created');
           database.execute(
               'CREATE TABLE list(id INTEGER PRIMARY KEY, name TEXT, priority INTEGER)');
           database.execute(
-              'CREATE TABLE items(id INTEGER PRIMARY KEY, idList INTEGER, name TEXT, quantity TEXT, note TEXT)');
+              'CREATE TABLE items(id INTEGER PRIMARY KEY, idList INTEGER, name TEXT, quantity TEXT, note TEXT, ' +
+                  'FOREIGN KEY(idList) REFERENCES list(id))');
           print('Table Created');
-        },
-        onOpen: (database) {
-          print('Database Opened');
         },
       );
     }
@@ -42,6 +46,7 @@ class ShoppingDatabase {
     int id = await database!.insert(
       'list',
       lists.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return id;
   }
@@ -50,6 +55,7 @@ class ShoppingDatabase {
     int id = await database!.insert(
       'items',
       items.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return id;
   }
@@ -94,6 +100,15 @@ class ShoppingDatabase {
       'list',
       where: 'id = ?',
       whereArgs: [list.id],
+    );
+    return result;
+  }
+
+  Future<int> deleteItem(Items items) async {
+    int result = await database!.delete(
+      'items',
+      where: 'id = ?',
+      whereArgs: [items.id],
     );
     return result;
   }

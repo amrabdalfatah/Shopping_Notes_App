@@ -17,33 +17,36 @@ class ShoppingListDialog {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
-      content: Column(
-        children: [
-          TextField(
-            controller: textName,
-            decoration: InputDecoration(
-              hintText: 'List Name',
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+              controller: textName,
+              decoration: InputDecoration(
+                hintText: 'List Name',
+              ),
             ),
-          ),
-          TextField(
-            controller: textPriority,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              hintText: 'Enter Priority',
+            TextField(
+              controller: textPriority,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                hintText: 'Enter Priority',
+              ),
             ),
-          ),
-          TextButton(
-            child: Text(
-              'Save Shopping List',
-              style: TextStyle(color: Colors.purple),
+            TextButton(
+              child: Text(
+                'Save Shopping List',
+                style: TextStyle(color: Colors.purple),
+              ),
+              onPressed: () {
+                list.name = textName.text;
+                list.priority = int.parse(textPriority.text);
+                shoppingDatabase.insertList(list);
+                Navigator.of(context).pop();
+              },
             ),
-            onPressed: () {
-              list.name = textName.text;
-              list.priority = int.parse(textPriority.text);
-              shoppingDatabase.insertList(list);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

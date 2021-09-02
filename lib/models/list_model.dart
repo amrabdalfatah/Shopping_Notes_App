@@ -11,7 +11,7 @@ class Lists {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'id': (id == 0) ? null : id,
       'name': name,
       'priority': priority,
     };

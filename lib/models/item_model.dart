@@ -15,7 +15,7 @@ class Items {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'id': (id == 0) ? null : id,
       'idList': idList,
       'name': name,
       'quantity': quantity,
