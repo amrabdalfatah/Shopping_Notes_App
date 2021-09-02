@@ -1,9 +1,9 @@
 class Items {
-  final int id;
-  final int idList;
-  final String name;
-  final String quantity;
-  final String note;
+  int id;
+  int idList;
+  String name;
+  String quantity;
+  String note;
 
   Items({
     required this.id,

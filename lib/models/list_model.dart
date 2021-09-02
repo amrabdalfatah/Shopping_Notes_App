@@ -1,7 +1,7 @@
 class Lists {
-  final int id;
-  final String name;
-  final int priority;
+  int id;
+  String name;
+  int priority;
 
   Lists({
     required this.id,

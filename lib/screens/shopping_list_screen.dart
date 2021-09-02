@@ -11,23 +11,6 @@ class ShoppingListScreen extends StatefulWidget {
 }
 
 class _ShoppingListScreenState extends State<ShoppingListScreen> {
-  List<Lists> listShopping = [
-    Lists(
-      id: 1,
-      name: 'Fruits',
-      priority: 3,
-    ),
-    Lists(
-      id: 2,
-      name: 'Vegetables',
-      priority: 2,
-    ),
-    Lists(
-      id: 3,
-      name: 'Bread',
-      priority: 5,
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     ShoppingDatabase shoppingDatabase = ShoppingDatabase();
